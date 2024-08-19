@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
+import mongoose from "mongoose";
 
 import contactsRouter from "./routes/contactsRouter.js";
 
@@ -24,3 +25,19 @@ app.use((err, req, res, next) => {
 app.listen(3000, () => {
   console.log("Server is running. Use our API on port: 3000");
 });
+
+const DB_HOST =
+  "mongodb+srv://user_1:user_1@contacts.urzce.mongodb.net/db-contacts?retryWrites=true&w=majority&appName=contacts";
+
+mongoose
+  .connect(DB_HOST)
+  .then(() => {
+    console.log("Database connect success");
+    app.listen(3000, () => {
+      console.log("Server is running. Use our API on port: 3000");
+    });
+  })
+  .catch((error) => {
+    console.log(error.message);
+    process.exit(1);
+  });
