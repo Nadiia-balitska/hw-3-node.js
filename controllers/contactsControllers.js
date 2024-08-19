@@ -11,6 +11,7 @@ import HttpError from "../helpers/HttpError.js";
 import {
   createContactSchema,
   updateContactSchema,
+  favoriteSchema,
 } from "../schemas/contactsSchemas.js";
 
 export const getAllContacts = async (_, res, next) => {
@@ -89,10 +90,10 @@ export const updateContact = async (req, res, next) => {
   }
 };
 
-export const isFavorite = async (req, res, next) => {
+export const updateFavorite = async (req, res, next) => {
   try {
     const { favorite } = req.body;
-    const { error } = updateContactSchema.validate(req.body);
+    const { error } = favoriteSchema.validate(req.body);
     if (error) {
       throw HttpError(400, error.message);
     }
