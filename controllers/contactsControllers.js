@@ -4,7 +4,7 @@ import {
   listContacts,
   removeContact,
   updateContactById,
-} from "../services/contactsServices";
+} from "../services/contactsServices.js";
 
 import HttpError from "../helpers/HttpError.js";
 import {

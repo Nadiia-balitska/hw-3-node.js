@@ -1,6 +1,6 @@
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import { nanoid } from "nanoid";
+// import { nanoid } from "nanoid";
 
 const contactsPath = path.resolve("db", "movies.json");
 
@@ -29,7 +29,7 @@ export async function removeContact(contactId) {
 export async function addContact(name, email, phone) {
   const contacts = await listContacts();
   const newContact = {
-    id: nanoid(),
+    // id: nanoid(),
     name,
     email,
     phone,
