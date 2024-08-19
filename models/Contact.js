@@ -27,6 +27,6 @@ contactSchema.pre("findOneAndUpdate", setUpdateOptions);
 
 contactSchema.post("findOneAndUpdate", handleSaveError);
 
-const Contact = model("movie", contactSchema);
+const Contact = model("contacts", contactSchema);
 
 export default Contact;

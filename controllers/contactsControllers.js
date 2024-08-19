@@ -4,6 +4,7 @@ import {
   listContacts,
   removeContact,
   updateContactById,
+  updateStatusContact,
 } from "../services/contactsServices.js";
 
 import HttpError from "../helpers/HttpError.js";
@@ -83,6 +84,27 @@ export const updateContact = async (req, res, next) => {
     }
 
     res.json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const isFavorite = async (req, res, next) => {
+  try {
+    const { favorite } = req.body;
+    const { error } = updateContactSchema.validate(req.body);
+    if (error) {
+      throw HttpError(400, error.message);
+    }
+
+    const { contactId } = req.params;
+    const result = await updateStatusContact(contactId, favorite);
+
+    if (!result) {
+      throw HttpError(404, `Contacts with id=${contactId} not found`);
+    }
+
+    res.status(200).json(result);
   } catch (error) {
     next(error);
   }

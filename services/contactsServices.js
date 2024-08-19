@@ -19,3 +19,8 @@ export function addContact(data) {
 export const updateContactById = async (id, data) => {
   Contact.findByIdAndUpdate(id, data);
 };
+
+export const updateStatusContact = async (contactId, favorite) => {
+  // Contact.updateStatusContact(contactId, body);
+  return Contact.findByIdAndUpdate(contactId, { favorite }, { new: true });
+};
