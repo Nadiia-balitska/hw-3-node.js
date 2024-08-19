@@ -2,9 +2,11 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 
 import contactsRouter from "./routes/contactsRouter.js";
 
+dotenv.config();
 const app = express();
 
 app.use(morgan("tiny"));
@@ -26,11 +28,8 @@ app.listen(3000, () => {
   console.log("Server is running. Use our API on port: 3000");
 });
 
-const DB_HOST =
-  "mongodb+srv://user_1:user_1@contacts.urzce.mongodb.net/db-contacts?retryWrites=true&w=majority&appName=contacts";
-
 mongoose
-  .connect(DB_HOST)
+  .connect(process.env.DB_HOST)
   .then(() => {
     console.log("Database connect success");
     app.listen(3000, () => {
