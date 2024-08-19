@@ -1,4 +1,4 @@
-import Contact from "../models/Contact";
+import Contact from "../models/Contact.js";
 
 export function listContacts() {
   Contact.find({}, "-createdAt -updatedAt");
