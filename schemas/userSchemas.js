@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-import { emailRegexp } from "../constants/user-constants.js";
+import { emailRegexp } from "../constants/userConstants.js";
 
 export const userSignupSchema = Joi.object({
   username: Joi.string().required(),
