@@ -15,11 +15,14 @@ import {
 } from "../schemas/contactsSchemas.js";
 
 import validateBody from "../helpers/validateBody.js";
+import authenticate from "../middlewares/authenticate.js";
 
 const addMiddleware = validateBody(createContactSchema);
 const updateMiddleware = validateBody(updateContactSchema);
 
 const contactsRouter = express.Router();
+
+contactsRouter.use(authenticate);
 
 contactsRouter.get("/", getAllContacts);
 
