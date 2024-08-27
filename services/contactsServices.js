@@ -1,23 +1,26 @@
 import Contact from "../models/Contact.js";
 
-export function listContacts() {
-  Contact.find({}, "-createdAt -updatedAt");
+export function listContacts(filter, settings) {
+  Contact.find(filter, "-createdAt -updatedAt", settings).populate(
+    "owner",
+    "username email"
+  );
 }
 
-export function getContactById(_id) {
-  return Contact.findById(_id);
+export function getOneContact(filter) {
+  return Contact.findById(filter);
 }
 
-export function removeContact(id) {
-  Contact.findByIdAndDelete(id);
+export function removeContact(filter) {
+  Contact.findOneAndDelete(filter);
 }
 
 export function addContact(data) {
   Contact.create(data);
 }
 
-export const updateContactById = async (id, data) => {
-  Contact.findByIdAndUpdate(id, data);
+export const updateContactById = async (filter, data) => {
+  Contact.findOneAndUpdate(filter, data);
 };
 
 export const updateStatusContact = async (contactId, favorite) => {
