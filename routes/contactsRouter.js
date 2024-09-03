@@ -16,6 +16,7 @@ import {
 
 import validateBody from "../helpers/validateBody.js";
 import authenticate from "../middlewares/authenticate.js";
+import upload from "../middlewares/upload.js";
 
 const addMiddleware = validateBody(createContactSchema);
 const updateMiddleware = validateBody(updateContactSchema);
@@ -30,7 +31,7 @@ contactsRouter.get("/:id", isValidId, getOneContact);
 
 contactsRouter.delete("/:id", isValidId, deleteContact);
 
-contactsRouter.post("/", addMiddleware, createContact);
+contactsRouter.post("/", upload.single("cover"), addMiddleware, createContact);
 
 contactsRouter.put("/:id", isValidId, updateMiddleware, updateContact);
 

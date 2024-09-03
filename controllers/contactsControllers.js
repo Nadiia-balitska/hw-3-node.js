@@ -1,3 +1,6 @@
+import * as fs from "node:fs/promises";
+import * as path from "node:path";
+
 import {
   addContact,
   getOneContact,
@@ -13,6 +16,8 @@ import {
   updateContactSchema,
   favoriteSchema,
 } from "../schemas/contactsSchemas.js";
+
+const coversPath = path.resolve("public", "covers");
 
 export const getAllContacts = async (req, res, next) => {
   try {
@@ -66,14 +71,20 @@ export const deleteContact = async (req, res, next) => {
 
 export const createContact = async (req, res, next) => {
   try {
+    const { path: oldPath, filename } = req.file;
+    const newPath = path.join(coversPath, filename);
+    await fs.rename(oldPath, newPath);
+
     const { _id: owner } = req.user;
+    const cover = path.join("covers", filename);
+
     const { error } = createContactSchema.validate(req.body);
 
     if (error) {
       throw HttpError(400, error.message);
     }
 
-    const result = await addContact({ ...req.body, owner });
+    const result = await addContact({ ...req.body, cover, owner });
 
     res.status(201).json(result);
   } catch (error) {
