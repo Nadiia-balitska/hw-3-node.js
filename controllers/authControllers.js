@@ -37,9 +37,29 @@ const signout = async (req, res) => {
   });
 };
 
+const verify = async (req, res) => {
+  const { verificationCode } = req.params;
+  await authServices.verifyUser(verificationCode);
+
+  res.json({
+    message: "Email verified successfully",
+  });
+};
+
+const resendVerify = async (req, res) => {
+  const { email } = req.body;
+  await authServices.resendVerifyEmail(email);
+
+  res.json({
+    message: "Verify email send again",
+  });
+};
+
 export default {
   signup: ctrlWrapper(signup),
   signin: ctrlWrapper(signin),
   getCurrent: ctrlWrapper(getCurrent),
   signout: ctrlWrapper(signout),
+  resendVerify: ctrlWrapper(resendVerify),
+  verify: ctrlWrapper(verify),
 };
