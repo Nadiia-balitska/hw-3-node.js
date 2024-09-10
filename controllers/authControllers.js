@@ -57,7 +57,6 @@ const signout = async (req, res) => {
   });
 };
 
-
 const verify = async (req, res) => {
   const { verificationCode } = req.params;
   await authServices.verifyUser(verificationCode);
@@ -74,12 +73,12 @@ const resendVerify = async (req, res) => {
   res.json({
     message: "Verify email send again",
   });
+};
 
 const updateAvatar = async (req, res, next) => {
   try {
     const { _id } = req.user;
     const { file } = req;
-
 
     const avatarNewName = `${_id}-${filename}`;
     const avatarNewPath = path.join(avatarsPath, avatarNewName);
@@ -97,7 +96,6 @@ const updateAvatar = async (req, res, next) => {
     await fs.unlink(req.file.path);
     next(HttpError(500, "Error while processing avatar"));
   }
-
 };
 
 export default {
@@ -105,9 +103,8 @@ export default {
   signin: ctrlWrapper(signin),
   getCurrent: ctrlWrapper(getCurrent),
   signout: ctrlWrapper(signout),
-
   resendVerify: ctrlWrapper(resendVerify),
+  verify: ctrlWrapper(verify),
 
   updateAvatar: ctrlWrapper(updateAvatar),
-
 };
