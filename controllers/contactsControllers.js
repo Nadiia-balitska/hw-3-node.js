@@ -26,8 +26,6 @@ export const getAllContacts = async (req, res, next) => {
     const skip = (page - 1) * limit;
     const result = await listContacts({ owner }, { skip, limit });
 
-    // const result = await listContacts();
-
     res.json(result);
   } catch (error) {
     next(error);
@@ -56,7 +54,6 @@ export const deleteContact = async (req, res, next) => {
     const { _id: owner } = req.user;
 
     const result = await removeContact({ _id: id, owner });
-    // const result = await removeContact(id);
     if (!result) {
       throw HttpError(404, `Contacts with id=${id} not found`);
     }
@@ -102,7 +99,6 @@ export const updateContact = async (req, res, next) => {
     const { _id: owner } = req.user;
     const result = await updateContactById({ _id: id, owner }, req.body);
 
-    // const result = await updateContactById(id, req.body);
     if (!result) {
       throw HttpError(404, `Contacts with id=${id} not found`);
     }
